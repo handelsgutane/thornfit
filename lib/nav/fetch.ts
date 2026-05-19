@@ -59,7 +59,7 @@ const NAV_KEY_PRIMARY = `nav:${KEY_VERSION}:primary`;
 const NAV_TTL_SECONDS = 60 * 60 * 24; // 24 timer — menyen endrer seg sjeldent
 
 /** WP menu-IDs (lives in WP admin). Hvis disse endres, oppdater også cron. */
-export const MENU_ID_DESKTOP = 536; // "main menu"
+export const MENU_ID_DESKTOP = 194; // thornfit-WP desktop-hovedmeny
 export const MENU_ID_MOBILE = 589; // "Mobilmeny"
 export const MENU_ID_FOOTER = 1035; // "Footer-meny"
 
