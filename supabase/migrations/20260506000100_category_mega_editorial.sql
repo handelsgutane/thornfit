@@ -1,5 +1,5 @@
 -- =============================================================================
--- 20260506000000_category_mega_editorial.sql
+-- 20260506000100_category_mega_editorial.sql
 -- =============================================================================
 -- Editorial-innhold for mega-meny per kategori. Erstatter hardkodet config i
 -- lib/nav/default.ts med data fra WooCommerce / WP, slik at redaktører kan
