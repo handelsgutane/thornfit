@@ -1,5 +1,33 @@
 import type { NextConfig } from 'next';
 
+/**
+ * Bilde-host for `next/image` avledes fra `WC_API_URL` — frontend whitelister
+ * kun WordPress-instansen den faktisk synker katalogen fra. WP serverer media
+ * under `/wp-content/uploads/` på samme host som REST-API-et. Verdien leses
+ * ved build-tid (`next.config.ts` kjører i Node før bundling); Vercel injiserer
+ * env-varene da, og lokalt kommer den fra `.env.local`.
+ *
+ * Returnerer `null` hvis `WC_API_URL` mangler/er ugyldig — da blir
+ * `remotePatterns` tom og `next/image` avviser alt. I praksis feiler bygget
+ * uansett tidligere i `lib/env.ts` hvis variabelen mangler.
+ */
+function wooImagePattern() {
+  const raw = process.env.WC_API_URL;
+  if (!raw) return null;
+  try {
+    const url = new URL(raw);
+    return {
+      protocol: url.protocol.replace(':', '') as 'http' | 'https',
+      hostname: url.hostname,
+      pathname: '/wp-content/uploads/**',
+    };
+  } catch {
+    return null;
+  }
+}
+
+const wooImage = wooImagePattern();
+
 const nextConfig: NextConfig = {
   // React 19 med strict mode — fanger side-effekter i dev.
   reactStrictMode: true,
@@ -14,34 +42,21 @@ const nextConfig: NextConfig = {
   // Next.js 16 har fjernet `eslint`-nøkkelen fra NextConfig.
 
   // -------------------------------------------------------------------
-  // Bilder — Fase 1: next/image optimalisering mot WP-media direkte
+  // Bilder — next/image optimalisering mot WP-media direkte
   // -------------------------------------------------------------------
-  // Vercel Image Optimization står foran WP-media-CDN. Første request til
-  // en gitt URL henter fra `www.skarpekniver.com`, resten serveres som
-  // AVIF/WebP fra Vercel edge-cache. Cache-TTL er 30 dager.
+  // Vercel Image Optimization står foran WP. Første request til en gitt URL
+  // henter fra WP-origin, resten serveres som AVIF/WebP fra Vercel edge-cache
+  // (30 dagers TTL).
   //
-  // Fase 2 (senere): Bunny pull-zone foran WP (cdn.skarpekniver.com), URL-
-  // rewriting i mapper, og evt. purge-hook i webhook. Se CLAUDE.md → Åpne
-  // spørsmål #5.
+  // `remotePatterns` whitelister hosten next/image får laste fra. Den avledes
+  // fra WC_API_URL via `wooImagePattern()` — se kommentaren der. Dette holder
+  // konfigen riktig uansett hvilken WP-instans miljøet peker på.
   //
-  // Siste utvei (lang sikt): migrer media til R2 og drop WP-origin helt.
-  //
-  // `remotePatterns` whitelister hostene next/image får lov å laste fra.
-  // Både apex og www er listet fordi Woo slipper mixed URLer.
+  // Fase 2 (senere): Bunny pull-zone / R2 foran WP — da må mønsteret utvides.
+  // Se CLAUDE.md → Åpne spørsmål #5/#6.
   // -------------------------------------------------------------------
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'www.skarpekniver.com',
-        pathname: '/wp-content/uploads/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'skarpekniver.com',
-        pathname: '/wp-content/uploads/**',
-      },
-    ],
+    remotePatterns: wooImage ? [wooImage] : [],
     // AVIF først (best komprimering), WebP fallback. JPEG/PNG for very old UA.
     formats: ['image/avif', 'image/webp'],
     // 30 dager i Vercel edge-cache. Sjeldent at et produkt-bilde endrer seg
