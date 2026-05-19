@@ -1,0 +1,524 @@
+@import "tailwindcss";
+
+/*
+ * Tema-håndtering — to-lags token-system (ADR-0008)
+ * ---------------------------------------------------------------------------
+ * Lag 1 — Brand tokens (@theme, fast):
+ *   Paper-paletten (unohana, shiro, kuro, sumi, aka, …). Disse flipper ALDRI
+ *   med light/dark mode. Brukes kun der "merkefargen" er essensen (aka-CTA,
+ *   editorial-kolonne som alltid er mørk, logo-farger).
+ *
+ * Lag 2 — Semantiske tokens (:root + data-theme, flipper):
+ *   Rolle-navngitte vars: canvas, surface, surface-muted, surface-hover,
+ *   surface-contrast, surface-contrast-hover, ink, ink-muted, ink-subtle,
+ *   ink-inverse, divider. Disse eksponeres via @theme inline som Tailwind-
+ *   utilities (bg-canvas, text-ink, border-divider, osv.) og flipper
+ *   automatisk når data-theme endres.
+ *
+ * Default: følg system-preferansen (prefers-color-scheme).
+ * Override: `<html data-theme="light">` eller `<html data-theme="dark">`
+ * tvinger modus uansett system-preferanse. ThemeToggle-komponenten
+ * (components/layout/ThemeToggle.tsx) setter attributtet og persister
+ * valget i localStorage (`skn-theme`). En pre-hydrerings-inline-script i
+ * layout.tsx leser verdien før første paint for å unngå flash.
+ */
+:root {
+  /* Semantic tokens — light mode (default) */
+  --canvas:                 #F5F5F3;  /* unohana — app background */
+  --surface:                #FFFFFF;  /* shiro — card / panel */
+  --surface-muted:          #EEEDE9;  /* utility-bar-bg — subdued panel */
+  --surface-hover:          #F5F5F3;  /* unohana — hover on surface */
+  --surface-contrast:       #1A1A1A;  /* kuro — dark pill/CTA on light bg */
+  --surface-contrast-hover: #2A2A2A;  /* sumi — hover on kuro */
+  --ink:                    #1A1A1A;  /* kuro — primary text */
+  --ink-muted:              #6B6B65;  /* haiiro — secondary text */
+  --ink-subtle:             #888880;  /* muted-label — tertiary / section labels */
+  --ink-inverse:            #FFFFFF;  /* shiro — text on dark surface */
+  --divider:                #E0E0DC;  /* sakai — border/divider */
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --canvas:                 #1A1A1A;  /* kuro — app background */
+    --surface:                #242424;  /* sumi-deep — card / panel */
+    --surface-muted:          #2A2A2A;  /* sumi — subdued panel */
+    --surface-hover:          #333333;  /* sumi-raised — hover on surface */
+    --surface-contrast:       #FFFFFF;  /* shiro — light pill/CTA on dark bg */
+    --surface-contrast-hover: #F5F5F3;  /* unohana — hover on shiro */
+    --ink:                    #FFFFFF;  /* shiro — primary text */
+    --ink-muted:              #9A9A95;  /* haiiro-light — secondary text */
+    --ink-subtle:             #6B6B65;  /* haiiro — tertiary */
+    --ink-inverse:            #1A1A1A;  /* kuro — text on light surface */
+    --divider:                #333333;  /* sumi-raised — border on dark */
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --canvas:                 #1A1A1A;
+  --surface:                #242424;
+  --surface-muted:          #2A2A2A;
+  --surface-hover:          #333333;
+  --surface-contrast:       #FFFFFF;
+  --surface-contrast-hover: #F5F5F3;
+  --ink:                    #FFFFFF;
+  --ink-muted:              #9A9A95;
+  --ink-subtle:             #6B6B65;
+  --ink-inverse:            #1A1A1A;
+  --divider:                #333333;
+  color-scheme: dark;
+}
+
+/* Paper UI tokens — "Friendly canyon", synced 2026-04-22 (re-verified from 9P-0/BB-0/G2-0/31-0/1J-0/4B-0) */
+@theme {
+  /* =========================================================================
+   * Colors — Paper swatches 1J-0 + component-derived surfaces
+   * =========================================================================
+   * Navn matcher Paper-artboardet. Ikke legg til generiske farger her
+   * (gray-500 etc.) — hvis en ny rolle trengs, legg den til Paper først.
+   */
+  --color-unohana:        #F5F5F3;  /* Primary BG (app background) */
+  --color-shiro:          #FFFFFF;  /* Surface / card */
+  --color-aka:            #FF3333;  /* Accent / CTA */
+  --color-aka-dark:       #CC2929;  /* Accent hover */
+  --color-kuro:           #1A1A1A;  /* Primary text, dark pill bg */
+  --color-haiiro:         #6B6B65;  /* Muted text (body-muted, utility bar) */
+  --color-sakai:          #E0E0DC;  /* Border / divider */
+  --color-sumi:           #2A2A2A;  /* Dark surface (editorial card hero) */
+  --color-sumi-deep:      #242424;  /* Mørkere enn sumi — dark-mode card surface */
+  --color-sumi-raised:    #333333;  /* Lysere enn sumi — dark-mode hover / divider */
+  --color-utility-bar-bg: #EEEDE9;  /* Utility bar surface — lettere enn unohana (9Q-0) */
+  --color-muted-label:    #888880;  /* Lysere muted brukt på mega-menu/drawer-labels (CV-0, H7-0) */
+  --color-label-dim:      #555550;  /* Low-contrast label på dark bg — Paper FE-0 FF-0/FP-0 (editorial-sidebar "REDAKSJONELT"/"TJENESTER") */
+  --color-haiiro-light:   #9A9A95;  /* Lysere haiiro — dark-mode body-muted */
+  --color-kin:            #D4930A;  /* Gold — fylt review-stjerne (47T-0). Brand-fixed: stjerner beholder gold også i dark mode. */
+  --color-midori:         #2A7D4F;  /* Success green — "Gratis"-pris i fraktabell (7GH-0), cookie status-dot (7FW-0), GDPR-grid (7E7-0). Brand-fixed. */
+  --color-kogane:         #8A6D00;  /* Warning amber — analytiske cookies-dot (7FW-0). Brand-fixed. */
+
+  /* Promo-badge-farger — brukt i CartLineItem "Mengderabatt"-pillene (4X5-0 /
+   * 67O-0). Vi holder disse som egne tokens i stedet for utility-klasser fordi
+   * de aldri skal gjenbrukes for noe annet enn promo/status-badges — og da
+   * vil nye roller (shipping, coupon, ...) ofte arve samme palett. */
+  --color-promo-pending-bg:     #FFF8E7;  /* pale amber — discount betinget (3+ stk) */
+  --color-promo-pending-border: #F5C842;  /* amber — matcher pending-bg */
+  --color-promo-pending-fg:     #7A5B0A;  /* dypere amber for lesbar tekst */
+  --color-promo-active-bg:      #EDFAF3;  /* pale green — discount aktivert */
+  --color-promo-active-border:  #4CAF7D;  /* green — matcher active-bg */
+  --color-promo-active-fg:      #1E6B3F;  /* dypere green for lesbar tekst */
+
+  /* Status-pill-farger for ordrer (6B7-0 status-kolonne + 7UR-0 mobile rad).
+   * Brand-fixed — skal være lesbare i både light og dark uten å flippe.
+   * Fire varianter:
+   *   success  — Levert (grønn)
+   *   warning  — Sendt / underveis (amber/gul)
+   *   neutral  — Behandles / venter (grå/canvas)
+   *   danger   — Kansellert / refundert (rød)
+   * Pill-form: rounded-1 (2px), label-utility 11px bold, py-0.75 px-2.
+   * Desktop pill har border (verifisert mot Paper 6B7-0 6F1-0/6FD-0/6FP-0/6F4-0/6GD-0).
+   * Mobile pill (7UR-0 7VT-0) har kun bg + fg, ingen border.
+   */
+  --color-status-success-bg:     #EDFAF3;
+  --color-status-success-fg:     #2A7D4F;
+  --color-status-success-border: #4CAF7D;
+  --color-status-warning-bg:     #FFF8E7;
+  --color-status-warning-fg:     #8A6D00;
+  --color-status-warning-border: #F5C842;
+  --color-status-neutral-bg:     #F5F5F3;
+  --color-status-neutral-fg:     #1A1A1A;
+  --color-status-neutral-border: #E0E0DC;
+  --color-status-danger-bg:      #FFF0F0;
+  --color-status-danger-fg:      #CC2929;
+  --color-status-danger-border:  #FF9999;
+
+  /* Footer (2AJ-0) — brand-fixed, flipper IKKE med tema. Footeren er alltid
+   * mørk (samme prinsipp som logo-sirkelen og drawer-overlay per ADR-0008).
+   * Bruker kuro som bg og unohana/haiiro for heading+body (som allerede finnes).
+   * Tokens under er de ekstra fargene Paper eksponerer for kopierett og
+   * newsletter-input som ikke har en generell rolle ellers i appen. */
+  --color-footer-subtle:       #4A4643;  /* Copyright / legal links (2BR-0/2BT-0) */
+  --color-footer-divider:      #2A2520;  /* border-top footer-bottom (2BQ-0) */
+  --color-footer-input-bg:     #2A2520;  /* Newsletter input bg (2AS-0) */
+  --color-footer-input-border: #3E3A39;  /* Newsletter input border (2AS-0) */
+
+  /* =========================================================================
+   * Font families. `--font-noto-serif-jp` settes av next/font/google i layout.
+   * =========================================================================
+   */
+  --font-sans:  "Satoshi", system-ui, sans-serif;
+  --font-serif: var(--font-noto-serif-jp), "Noto Serif JP", serif;
+
+  /* =========================================================================
+   * Type scale
+   * =========================================================================
+   * Semantiske roller fra Paper 31-0. Size + line-height + letter-spacing
+   * eksponeres via Tailwind-utilities (text-display, text-h1, …, text-body,
+   * text-label, …). Fontens weight settes separat med font-bold / font-medium
+   * etter behov.
+   *
+   * Display/H1/H2/H3/Body/Label er fra design-system-artboardet.
+   * Body-sm/Body-xs/Muted-sm/Utility/Label-sm er avledet fra faktiske node-
+   * verdier i 9P-0, BB-0, G2-0 — disse er normen i nav, ikke edge-cases.
+   */
+
+  /* Display — 3B-0 "Japansk presisjon." */
+  --text-display:                   56px;
+  --text-display--line-height:      59px;   /* 105% round-up */
+  --text-display--letter-spacing:   -0.03em;
+
+  /* H1 — 3G-0 */
+  --text-h1:                        40px;
+  --text-h1--line-height:           44px;   /* 110% */
+  --text-h1--letter-spacing:        -0.02em;
+
+  /* H2 — 3L-0 */
+  --text-h2:                        28px;
+  --text-h2--line-height:           34px;   /* 120% */
+  --text-h2--letter-spacing:        -0.02em;
+
+  /* H3 — 3Q-0 */
+  --text-h3:                        20px;
+  --text-h3--line-height:           26px;   /* 130% */
+  --text-h3--letter-spacing:        -0.01em;
+
+  /* H4 — sub-header på mobil (Paper B6Q-0 B7H-0 "Mine ordrer"). 17px bold med
+   * litt tightening. Brukes til mobile sub-page-titler der vi vil ha tydelig
+   * hierarki under den globale headeren uten å kjøre full text-h2. */
+  --text-h4:                        17px;
+  --text-h4--line-height:           22px;
+  --text-h4--letter-spacing:        -0.01em;
+
+  /* Body — 3V-0, 3Y-0 (muted-varianten bruker samme metrikk, kun farge skiller) */
+  --text-body:                      16px;
+  --text-body--line-height:         26px;
+
+  /* Body small — primary nav (A5-0), mobile drawer link (H9-0), drawer CTA (JA-0) */
+  --text-body-sm:                   14px;
+  --text-body-sm--line-height:      18px;
+
+  /* Body medium — mobile drawer nav-label (H2-0), mega-menu lead-tittel (CX-0), editorial tittel (FK-0) */
+  --text-body-md:                   15px;
+  --text-body-md--line-height:      18px;
+  --text-body-md--letter-spacing:   -0.01em;
+
+  /* Body extra small — mega-menu lenke-rad (D2-0), kurv-pill (B8-0), tjenester (FT-0) */
+  --text-body-xs:                   13px;
+  --text-body-xs--line-height:      16px;
+
+  /* Muted small — mega-menu lead-subtekst (CY-0), editorial brødtekst (FL-0), footer-links (JC-0) */
+  --text-muted-sm:                  12px;
+  --text-muted-sm--line-height:     16px;
+
+  /* Label — 45-0, mega-menu section labels (CV-0) */
+  --text-label:                     11px;
+  --text-label--line-height:        16px;
+  --text-label--letter-spacing:     0.1em;
+
+  /* Label small — mobile drawer section label (H7-0) */
+  --text-label-sm:                  10px;
+  --text-label-sm--line-height:     12px;
+  --text-label-sm--letter-spacing:  0.1em;
+
+  /* Utility — utility-bar messages (9R-0) */
+  --text-utility:                   10px;
+  --text-utility--line-height:      12px;
+  --text-utility--letter-spacing:   0.04em;
+
+  /* Pill — status-pill og inline metadata-tekst (Paper 6B7-0 6EZ-0/6F4-0).
+   * 9px bold uten letter-spacing — skiller seg fra text-label (som har
+   * 0.1em tracking egnet for SECTION-LABELS-uppercase). Iterativt landet
+   * på 9px etter A/B mot 11px og 6px — subtil metadata som ikke fanger
+   * blikket før produktnavnet.
+   * Brukes på order-status-pill, "Se detaljer →"-sub-link, og micro-copy
+   * generelt. */
+  --text-pill:                      12px;
+  --text-pill--line-height:         15px;
+
+  /* Table-header — UPPERCASE column-headers i ordre-tabell (Paper 6B7-0 6EP-0).
+   * 9px bold med tydelig tracking (0.1em) for å holde lesbarheten på caps.
+   * Iterativt landet på 9px (samme som pill) — tracking + uppercase
+   * skiller dem visuelt. */
+  --text-table-header:                  11px;
+  --text-table-header--line-height:     14px;
+  --text-table-header--letter-spacing:  0.1em;
+
+  /* Date — kompakt dato-tekst i ordre-tabell (desktop) og ordre-rad (mobile).
+   * Eget token-par fordi dato skal være tydelig sekundær til ordrenr/produkt
+   * og kan justeres uten å påvirke `text-body-xs` (som brukes i mega-meny,
+   * mobile drawer-link, kurv-pill osv.). Mobile er 1px mindre enn desktop —
+   * datoen er i seg selv mindre viktig på mobil hvor radene er smalere. */
+  --text-date:                          13px;
+  --text-date--line-height:             16px;
+  --text-date-mobile:                   12px;
+  --text-date-mobile--line-height:      15px;
+
+  /* =========================================================================
+   * Spacing — Paper sp-1..sp-8 (4B-0). 8px base unit.
+   * =========================================================================
+   * Eksponeres som Tailwind-utilities p-sp-3, gap-sp-6, osv.
+   */
+  --spacing-sp-1: 4px;    /* Icon gap, tight inline spacing */
+  --spacing-sp-2: 8px;    /* Base unit — element gap, label-value pairs */
+  --spacing-sp-3: 16px;   /* Component internal padding */
+  --spacing-sp-4: 24px;   /* Card padding, row gaps */
+  --spacing-sp-5: 32px;   /* Section sub-group gap */
+  --spacing-sp-6: 48px;   /* Between components on a page */
+  --spacing-sp-7: 64px;   /* Section padding (top/bottom) */
+  --spacing-sp-8: 96px;   /* Hero / page-level section breathing room */
+
+  /* =========================================================================
+   * Border radius — Paper r-1..r-4 (4B-0)
+   * =========================================================================
+   * Navn er 1..4 (ikke r-1..r-4) for å unngå kollisjon med Tailwinds
+   * directional `rounded-r-*` (right-side) utility.
+   *   rounded-1 → 2px   (r-1)
+   *   rounded-2 → 4px   (r-2)
+   *   rounded-3 → 8px   (r-3)
+   *   rounded-4 → 12px  (r-4)
+   */
+  --radius-1:    2px;
+  --radius-2:    4px;
+  --radius-3:    8px;
+  --radius-4:    12px;
+  --radius-full: 9999px;
+  /* Legacy aliaser — behold under migrasjon. Fjern når alle refs er flyttet. */
+  --radius-sm:   2px;
+  --radius-md:   4px;
+  --radius-lg:   8px;
+  --radius-xl:   12px;
+
+  /* =========================================================================
+   * Shadows
+   * =========================================================================
+   */
+  --shadow-sm:          0px 1px 4px  rgba(0, 0, 0, 0.12);
+  --shadow-mega:        0px 8px 32px rgba(0, 0, 0, 0.08); /* CT-0 mega-menu panel */
+  --shadow-card-hover:  0px 4px 20px rgba(0, 0, 0, 0.10); /* 485-0 product card hover */
+
+  /* =========================================================================
+   * Layout — heights, widths, max-widths
+   * =========================================================================
+   * Eksponeres som h-utility-bar, h-header, h-mobile-header, w-drawer,
+   * max-w-content.
+   */
+  --height-utility-bar:   28px;   /* 9Q-0 */
+  --height-header:        72px;   /* 9W-0 */
+  --height-mobile-header: 60px;   /* G3-0 */
+  --height-drawer-row:    52px;   /* H1-0, IM-0 — mobile drawer nav row */
+  --height-sticky-cta:    87px;   /* 65X-0 — mobile cart sticky checkout bar */
+  --size-qty-btn:         40px;   /* 4V6-0 / 65X-0 — +/− quantity stepper button. Bumpet fra 34→40 så knappene ikke føles klemt; hit-target er nå WCAG-konform uten ekstra padding-triks. */
+  --size-qty-display-min: 3ch;    /* 4V6-0 / 65X-0 — minimum bredde for antall-visning (3ch gir bedre breathing-room rundt 1-2 sifre) */
+  --size-cart-thumb:      88px;   /* 4X7-0 — desktop cart-item thumb */
+  --size-cart-thumb-sm:   72px;   /* 67Q-0 — mobile cart-item thumb */
+  --size-cta-lg:          46px;   /* 6AZ-0 — primary CTA-button-høyde på sticky bar */
+  --size-badge:           22px;   /* B8-0 — cart-count badge diameter. Finjustert 2026-04-24: 28px leste som for dominerende mot "Kurv"-labelen i pill-en. 22px (≈55% av h-10) gir visuell støtte til tallet uten å konkurrere med labelen. */
+  --size-rec-thumb:       44px;   /* 5LK-0 — desktop recommend-card thumb */
+  --size-rec-thumb-sm:    40px;   /* 66W-0 — mobile recommend-card thumb */
+  --size-rec-plus:        28px;   /* 5LO-0 — desktop recommend "+"-knapp */
+  --size-share-btn:       40px;   /* 51E-0/6AE-0 — høyde på "Kopier link"-knapp i cart-summary */
+  --size-step-badge:      28px;   /* 7E7-0 — numerert step-badge i legal retur-prosess */
+  --size-cookie-dot:      8px;    /* 7FW-0 — cookie-status-dot i legal cookies-section */
+  --width-rec-card-sm:    260px;  /* 66V-0/673-0/67B-0 — mobil recommend-kort min-bredde i horisontal-scroll */
+  --width-empty-state:    560px;  /* Cart empty-state kort-bredde */
+  --width-cta-min:        220px;  /* Min-bredde på solo primary CTA i empty states */
+  --height-skel-title:    56px;   /* Cart-skeleton: h1-replacement */
+  --width-skel-title:     200px;  /* Cart-skeleton: h1-replacement bredde */
+  --height-skel-row:      180px;  /* Cart-skeleton: item-rad */
+  --height-skel-summary:  400px;  /* Cart-skeleton: summary-kort */
+  --min-h-cart-empty:     50vh;   /* Empty cart page minimum height */
+  --width-cart-summary:   400px;  /* 4V6-0 — desktop cart summary sidebar (bumpet fra 360 for bredere oppsummeringskort) */
+  --width-legal-toc:      240px;  /* 7AQ-0 — desktop TOC-sidebar på vilkår-siden */
+  --width-contact-info:   538px;  /* 9WU-1 — venstre info-kolonne på /kontakt-oss desktop */
+  --height-contact-map:   447px;  /* 9WU-1 — høyde på map-kortet på /kontakt-oss desktop */
+  --size-contact-icon:    44px;   /* 9WU-1 — icon-wrapper i kontakt-kort (bg-aka / bg-ink) */
+  --width-auth-benefits:       520px;  /* ALT-1 — høyre sidebar-bredde på login/register desktop (Paper plasserer den til høyre, med diagonal cut). */
+  --width-auth-form:           480px;  /* Legacy — behold inntil ingen komponent refererer, så fjern. Ikke ny bruk. */
+  --width-auth-card-login:     776px;  /* ALR-1 form-card — login kortet er bredere (færre felter, lenger radlengde OK). */
+  --width-auth-card-register:  776px;  /* ADX-1 form-card — matches login (776px) for visuell konsistens når tabs flipper. Var 560px, men Alexander ønsket samme bredde så tab-switch ikke triggrer en bredde-jump. */
+  --padding-auth-card-x:       44px;   /* ALR-1 / ADX-1 — desktop horisontal padding i form-card. */
+  --padding-auth-card-y:       48px;   /* ALR-1 / ADX-1 — desktop vertikal padding. */
+  --padding-auth-card-x-sm:    24px;   /* AQT-1 — mobil horisontal padding. */
+  --padding-auth-card-y-sm:    28px;   /* AQT-1 — mobil vertikal padding. */
+  --shadow-auth-card:          0px 2px 16px rgba(0, 0, 0, 0.06);  /* ATM-1 boxShadow — subtilt løft mot canvas. */
+  --shadow-auth-card-sm:       0px 2px 8px  rgba(0, 0, 0, 0.04);  /* AW0-1 — mobil har mindre dropshadow. */
+  --height-auth-input:         48px;   /* ALR-1 — input-høyde desktop (50px mobil via responsive). Bruker 48px som basis-token. */
+  --height-auth-cta:           52px;   /* ALR-1 — primary-CTA høyde (bg-aka "Logg inn" / "Opprett konto") */
+  --min-h-auth-shell:          calc(100vh - var(--height-header));  /* Auth-side skal fylle viewport under headeren */
+
+  /* Konto / Profile-area (Paper 6B7-0 desktop / 7SO-0 mobile hub).
+   * Sidebar 260 + 48px gap + content 1052 = 1360, ligger innenfor
+   * --width-content 1312 fordi sidebaren henger inn i venstre marg. */
+  --width-account-sidebar:        260px;  /* 6B7-0 venstre sidebar */
+  --width-account-content:        1052px; /* 6B7-0 høyre kontent-kolonne */
+  --gap-account-shell:            48px;   /* 6B7-0 sidebar↔content gap (paddingLeft på content-frame 6EE-0) */
+  --height-account-row:           51px;   /* 7SO-0 mobil hub-rad */
+  --height-account-logout:        50px;   /* 7SO-0 logg ut-rad (rød, uten chevron) */
+  --height-account-row-desktop:   40px;   /* 6B7-0 sidebar-nav-rad (260×40, py-2.75 px-3, gap 2.5) */
+  --width-orders-search:          127px;  /* 6B7-0 6EJ-0 søk-input — kompakt 127×36, IKKE 280px */
+  --height-orders-search:         36px;   /* 6B7-0 6EJ-0 søk-input høyde */
+  --width-load-more-btn:          147px;  /* 6B7-0 6GK-0 "Vis flere ordrer" knapp (desktop) */
+  --height-load-more-btn:         38px;
+  --width-load-more-btn-mobile:   350px;  /* B6Q-0 B8U-0 mobil-variant — full bredde 350×46 */
+  --height-load-more-btn-mobile:  46px;
+  --size-account-avatar:          56px;   /* 6B7-0 sidebar profile-card avatar */
+  --size-account-avatar-mobile:   64px;   /* 7SO-0 mobile hub avatar */
+  --size-account-nav-icon-sm:     16px;   /* 6B7-0 sidebar-rad-icon (mindre enn mobil) */
+  --size-account-nav-icon:        20px;   /* 7SO-0 mobil hub-rad-icon */
+  --size-account-row-chevron:     14px;   /* 6B7-0 sidebar trailing chevron */
+
+  --width-drawer:         390px;  /* GS-0 / G2-0 */
+  --width-content:        1312px; /* Paper 12-col grid max content width */
+  --width-hero-text:      80%;    /* Maks bredde for lengre prosa i hero-band (kategori-description, editorial lead) på desktop. Brand-valg 2026-04-24 — bevisst avvik fra Paper 387-0 (480px). Justert 2026-04-24: 50% → 62% → 80% etter visuell review. */
+
+  /* Mega-menu side-kolonner. Bredere enn Paper (CU-0 300, FE-0 280) etter
+   * produkt-feedback — sidepanelene trenger mer pust, midt-kolonnene klarer
+   * seg på mindre. 360 + 320 = 680 faste; midt får 632 (316 hver ved to
+   * kolonner) innenfor --width-content 1312. */
+  --width-mega-overview:  360px;
+  --width-mega-editorial: 320px;
+}
+
+/*
+ * Inline tokens — verdier som kommer fra runtime-CSS-vars.
+ * Alt som må flippe med tema MÅ være her (ikke i @theme-blokken over), fordi
+ * @theme frosser verdien til build-tid. Semantic tokens over eksponeres som
+ * Tailwind-utilities: bg-canvas, bg-surface, bg-surface-muted, bg-surface-hover,
+ * bg-surface-contrast, text-ink, text-ink-muted, text-ink-subtle, text-ink-inverse,
+ * border-divider. `background`/`foreground` beholdes som alias for body-baseline.
+ */
+@theme inline {
+  --color-background:             var(--canvas);
+  --color-foreground:             var(--ink);
+  --color-canvas:                 var(--canvas);
+  --color-surface:                var(--surface);
+  --color-surface-muted:          var(--surface-muted);
+  --color-surface-hover:          var(--surface-hover);
+  --color-surface-contrast:       var(--surface-contrast);
+  --color-surface-contrast-hover: var(--surface-contrast-hover);
+  --color-ink:                    var(--ink);
+  --color-ink-muted:              var(--ink-muted);
+  --color-ink-subtle:             var(--ink-subtle);
+  --color-ink-inverse:            var(--ink-inverse);
+  --color-divider:                var(--divider);
+  --font-mono:                    var(--font-geist-mono);
+}
+
+/* Anker-navigering — smooth scroll globalt, og scroll-padding slik at
+   hash-jumps (f.eks. /vilkar-og-personvern#personvern) ikke havner bak
+   det sticky page-headeret (72px + 16px pusterom). Dette gjør `scroll-mt-*`
+   på individuelle seksjoner overflødig — vi har én felles regel.
+   `prefers-reduced-motion` respekteres via media-query under. */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--height-header) + 16px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-sans);
+}
+
+/* ---- Produktbeskrivelse (WooCommerce HTML-innhold) ----
+   Scoped under .product-description for å unngå globale side-effekter.
+   Woo genererer typisk <p>, <ul>, <ol>, <strong>, <em>, <h2>-<h4>.
+   Vi bruker design-tokens fra @theme der de finnes. */
+.product-description {
+  font-size: var(--text-body-md);
+  line-height: 175%;
+  color: var(--ink);
+}
+.product-description p { margin-top: 1.25rem; }
+.product-description p:first-child { margin-top: 0; }
+.product-description ul,
+.product-description ol { margin-top: 1rem; padding-left: 1.5rem; }
+.product-description ul { list-style-type: disc; }
+.product-description ol { list-style-type: decimal; }
+.product-description li { margin-top: 0.25rem; }
+.product-description strong { font-weight: 700; }
+.product-description em { font-style: italic; }
+.product-description h2 {
+  font-size: 20px;             /* paper-exact: EZ7-0 F2A-0 — section header */
+  line-height: 26px;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+}
+.product-description h3,
+.product-description h4 {
+  font-size: var(--text-body);
+  font-weight: 700;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+}
+.product-description a {
+  color: var(--aka);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Pull-quote — Paper EZ7-0 F2C-0: lett bg-tinge (#FAFAF8), 3px aka venstre-
+   border, full padding (12 vertikal / 16 horisontal), italic medium 15/24.
+   Brukes i kniv-info-artikler. */
+.product-description blockquote {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  padding: 12px 16px;
+  background: #FAFAF8;
+  border-left: 3px solid var(--aka);
+  font-style: italic;
+  font-weight: 500;
+  font-size: var(--text-body-md);
+  line-height: 160%;
+  color: var(--ink);
+}
+.product-description blockquote p { margin-top: 0.5rem; }
+.product-description blockquote p:first-child { margin-top: 0; }
+
+/* Info-box / spec-table (Paper EZ7-0 F2G-0 "RASK OVERSIKT"). WP-blokker skriver
+   ofte tabeller med <table><tbody><tr><td>. Lett tonet bg (#FAFAF8) + 1px
+   sakai-border + radius 4 for å skille dem visuelt fra brødtekst. */
+.product-description table {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  width: 100%;
+  border-collapse: collapse;
+  background: #FAFAF8;
+  border: 1px solid var(--divider);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.product-description thead { background: var(--surface); }
+.product-description th,
+.product-description td {
+  padding: 0.875rem 1rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--divider);
+  font-size: var(--text-body-sm);
+}
+.product-description tr:last-child td { border-bottom: none; }
+.product-description th {
+  font-weight: 700;
+  color: var(--ink);
+}
+.product-description td:first-child { font-weight: 700; }
+
+/* ---- no-scrollbar — for horisontalt scrollende pille-rader (mobil filter)
+   Brukt på /kniv-info-mobile filter-pills (FYZ-0 G02-0). Skjuler scrollbar
+   visuelt men beholder scroll-funksjon. */
+.no-scrollbar {
+  -ms-overflow-style: none;     /* IE/Edge legacy */
+  scrollbar-width: none;        /* Firefox */
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;                /* Chrome/Safari/Opera */
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "regions": ["arn1"],
+  "crons": [
+    {
+      "path": "/api/cron/woo-reconciliation",
+      "schedule": "0 3 * * *"
+    },
+    {
+      "path": "/api/cron/sync-wp-menus",
+      "schedule": "0 6 * * *"
+    }
+  ],
+  "functions": {
+    "app/api/cron/woo-reconciliation/route.ts": {
+      "maxDuration": 300
+    },
+    "app/api/cron/sync-wp-menus/route.ts": {
+      "maxDuration": 120
+    },
+    "app/api/webhooks/woo/route.ts": {
+      "maxDuration": 30
+    }
+  }
+}
