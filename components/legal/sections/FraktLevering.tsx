@@ -36,8 +36,8 @@ const OPTIONS: ShippingOption[] = [
     price: '249 kr',
   },
   {
-    name: 'Hent i butikk — Oslo',
-    description: 'Storgata 12, 0182 Oslo · man–lør 10–18',
+    name: 'Hent på Bryn — Oslo',
+    description: 'Brynsveien 3, 0667 Oslo · etter avtale',
     deliveryTime: 'Samme dag',
     price: 'Gratis',
     priceFree: true,

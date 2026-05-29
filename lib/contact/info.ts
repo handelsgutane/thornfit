@@ -42,25 +42,24 @@ export const CONTACT_STORE = {
   /** Butikk-/selskapsnavn som vises som H2 i map-overlay. */
   brand: 'THORN FIT',
   /** Kort-adresse som vises i kort/overlay. */
-  addressLine: 'Vulkan 24, 0178 Oslo',
+  addressLine: 'Brynsveien 3, 0667 Oslo',
   /** Kort beskrivelse brukt i hero-subtittel og i butikk-seksjonen. */
   description:
-    'Vi holder til i Mathallen på Vulkan. Stikk innom for å kjenne på knivene, få sliping utført på stedet, eller bare slå av en prat med oss.',
-  /** Geo-koordinater (Mathallen, Oslo). Brukes til maps-lenker og senere et ekte map-widget. */
+    'Vi er en nettbutikk med lager og utleveringssted på Bryn i Oslo. Du kan hente varene etter avtale, eller ta kontakt på e-post eller telefon.',
+  /** Geo-koordinater (Bryn, Oslo) — OMTRENTLIGE, verifiser før et ekte map-widget tas i bruk. */
   geo: {
-    lat: 59.9237,
-    lng: 10.7528,
+    lat: 59.9085,
+    lng: 10.806,
   },
   /** Eksternt kart-link (Google Maps). Åpnes i ny fane fra "Vis i kart"-CTA. */
-  mapUrl: 'https://www.google.com/maps/search/?api=1&query=Mathallen+Oslo',
+  mapUrl: 'https://www.google.com/maps/search/?api=1&query=Brynsveien+3+0667+Oslo',
   /** Support-e-post — synlig på kontakt-siden som e-post-CTA. */
   email: 'post@thornfit.no',
 } as const;
 
 export const CONTACT_OPENING_HOURS: readonly OpeningHoursRow[] = [
-  { label: 'Mandag — fredag', hours: '11:00 — 17:30', closed: false },
-  { label: 'Lørdag', hours: '10:30 — 16:30', closed: false },
-  { label: 'Søndag', hours: 'Stengt', closed: true },
+  { label: 'Nettbutikk', hours: 'Åpen hele døgnet', closed: false },
+  { label: 'Utlevering på Bryn', hours: 'Etter avtale', closed: false },
 ] as const;
 
 /**
@@ -68,10 +67,10 @@ export const CONTACT_OPENING_HOURS: readonly OpeningHoursRow[] = [
  * tider i store-section. Ikke lenker — rent informerende.
  */
 export const CONTACT_STORE_SERVICES: readonly string[] = [
-  'Knivslip på stedet',
+  'Fri frakt over 1 500 kr',
+  'Utlevering på Bryn etter avtale',
   'Personlig rådgivning',
-  'Gavekort',
-  'Slipekurs',
+  '14 dagers angrerett',
 ] as const;
 
 export const CONTACT_CHANNELS: readonly ContactChannel[] = [
@@ -99,7 +98,7 @@ export const CONTACT_CHANNELS: readonly ContactChannel[] = [
     id: 'visit',
     title: 'Besøk oss',
     description:
-      'Finn oss i Mathallen Oslo. Kom innom for å teste kniver og få personlig rådgivning.',
+      'Lager og utlevering på Bryn i Oslo. Avtal et tidspunkt, så har vi varene klare.',
     ctaLabel: CONTACT_STORE.addressLine,
     href: CONTACT_STORE.mapUrl,
     iconTone: 'ink',
@@ -110,4 +109,4 @@ export const CONTACT_CHANNELS: readonly ContactChannel[] = [
 export const CONTACT_HERO_KICKER = 'Hjelp og kontakt';
 export const CONTACT_HERO_TITLE = 'Vi er her for deg';
 export const CONTACT_HERO_SUBTITLE =
-  'Chat med oss, send en e-post, eller stikk innom butikken vår i Mathallen Oslo.';
+  'Send oss en e-post, ring, eller hent varene på Bryn i Oslo etter avtale.';

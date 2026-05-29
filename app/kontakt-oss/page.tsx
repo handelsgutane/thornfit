@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     canonical: '/kontakt-oss',
   },
   openGraph: {
-    title: 'Kontakt oss — Skarpe Kniver',
+    title: 'Kontakt oss — THORN FIT',
     description: CONTACT_HERO_SUBTITLE,
     type: 'website',
   },

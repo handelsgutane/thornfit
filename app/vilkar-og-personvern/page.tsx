@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     canonical: '/vilkar-og-personvern',
   },
   openGraph: {
-    title: 'Vilkår og personvern — Skarpe Kniver',
+    title: 'Vilkår og personvern — THORN FIT',
     description: LEGAL_HERO_INTRO,
     type: 'article',
   },

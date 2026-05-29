@@ -22,7 +22,7 @@ import { LoginForm, LoginFormSkeleton } from '@/components/account/LoginForm';
 import { LOGIN_SUBTITLE, LOGIN_TITLE } from '@/lib/auth/info';
 
 export const metadata: Metadata = {
-  title: `${LOGIN_TITLE} — Skarpe Kniver`,
+  title: `${LOGIN_TITLE} — THORN FIT`,
   description: LOGIN_SUBTITLE,
   robots: { index: false, follow: false },
   alternates: {

@@ -29,7 +29,7 @@ interface OrderDetailRouteProps {
 export const metadata: Metadata = {
   // Dynamisk title settes ikke per ordre — ordrenummer er sensitivt nok at vi
   // holder det utenfor `<title>`. Robots blokkerer alt under /konto uansett.
-  title: 'Ordredetalj — Skarpe Kniver',
+  title: 'Ordredetalj — THORN FIT',
   robots: { index: false, follow: false },
 };
 

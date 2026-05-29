@@ -20,9 +20,9 @@ const SUBSECTIONS: SubSection[] = [
   {
     number: '1.1',
     title: 'Avtaleparter',
-    full: 'Kjøper er den personen som foretar bestillingen. Selger er Skarpe Kniver AS, organisasjonsnummer 912 345 678, med forretningsadresse Storgata 12, 0182 Oslo. Avtalen inngås elektronisk ved at kjøper gjennomfører bestillingen og selger bekrefter ordren per e-post.',
+    full: 'Kjøper er den personen som foretar bestillingen. Selger er Handelsgutane AS, organisasjonsnummer 917 765 146, med forretningsadresse Brynsveien 3, 0667 Oslo. Avtalen inngås elektronisk ved at kjøper gjennomfører bestillingen og selger bekrefter ordren per e-post.',
     compact:
-      'Selger er Skarpe Kniver AS, org.nr. 912 345 678, Storgata 12, 0182 Oslo. Avtalen inngås elektronisk ved gjennomført bestilling og bekreftet per e-post.',
+      'Selger er Handelsgutane AS, org.nr. 917 765 146, Brynsveien 3, 0667 Oslo. Avtalen inngås elektronisk ved gjennomført bestilling og bekreftet per e-post.',
   },
   {
     number: '1.2',

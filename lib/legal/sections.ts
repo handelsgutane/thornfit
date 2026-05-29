@@ -74,5 +74,5 @@ export const LEGAL_HERO_INTRO =
 /** Kontakt-linje i TOC-foten + i mobil-footer. */
 export const LEGAL_CONTACT = {
   email: 'post@thornfit.no',
-  phone: '+47 22 00 00 00',
+  phone: '+47 22 64 66 00',
 } as const;

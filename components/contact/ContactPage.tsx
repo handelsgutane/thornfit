@@ -192,10 +192,10 @@ function StoreInfo() {
       {/* Kicker + H2 + body. */}
       <div className="flex flex-col gap-sp-3">
         <span className="text-label font-bold uppercase text-ink-muted">
-          Butikk i Mathallen
+          Lager og utlevering
         </span>
         <h2 id="store-heading" className="text-h2 font-bold text-ink">
-          Vulkan 24, Oslo
+          Brynsveien 3, Oslo
         </h2>
         <p className="max-w-(--width-hero-text) text-body-sm leading-relaxed text-ink-muted md:text-body">
           {CONTACT_STORE.description}

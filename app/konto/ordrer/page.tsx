@@ -21,7 +21,7 @@ import { getSessionUser } from '@/lib/auth/session';
 import { fetchUserOrders } from '@/lib/woo/orders';
 
 export const metadata: Metadata = {
-  title: `${ORDERS_TITLE} — Skarpe Kniver`,
+  title: `${ORDERS_TITLE} — THORN FIT`,
   robots: { index: false, follow: false },
   alternates: { canonical: '/konto/ordrer' },
 };

@@ -47,8 +47,8 @@ export function ReturReklamasjon({ density }: { density: Density }) {
         <h3 className="text-body font-bold text-ink">3.1 Returbetingelser</h3>
         <p className="text-body leading-relaxed text-ink">
           {isFull
-            ? 'Ubrukte varer i original emballasje kan returneres innen 14 dager fra mottak. Kniver som er tatt i bruk eller slipt kan ikke returneres av hygiene- og sikkerhetsmessige årsaker, med mindre de er mangelfulle. Kontakt oss på post@thornfit.no med ordrenummer og begrunnelse for å starte returen.'
-            : 'Ubrukte varer i original emballasje kan returneres innen 14 dager. Brukte eller slipte kniver tas ikke tilbake av hygienegrunner. Kontakt post@thornfit.no med ordrenummer for å starte retur.'}
+            ? 'Du har 14 dagers angrerett fra du mottar varen, uten å måtte oppgi grunn. Ubrukte varer i original emballasje kan returneres. Du dekker selv returfrakten og må pakke varen slik at den kommer uskadet frem. Kontakt oss på post@thornfit.no med ordrenummer for å starte returen — returadresse: Handelsgutane AS, ThornFit Norge, Brynsveien 3, 0667 Oslo.'
+            : '14 dagers angrerett fra mottak. Ubrukte varer returneres i original emballasje; du dekker returfrakten. Kontakt post@thornfit.no med ordrenummer for å starte retur.'}
         </p>
       </div>
 

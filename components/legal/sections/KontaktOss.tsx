@@ -1,7 +1,7 @@
 /**
  * Kontakt oss (seksjon 06) — Paper 7GH-0.
  *
- * Kort intro + to info-kort side om side (Skarpe Kniver AS + Datatilsynet).
+ * Kort intro + to info-kort side om side (Handelsgutane AS + Datatilsynet).
  * På desktop er kortene `flex-1` i en `gap-sp-3`-rad. På compact (mobil)
  * stacker de vertikalt siden 2×kort ikke er lesbart på 358px.
  */
@@ -24,13 +24,13 @@ export function KontaktOss({ density }: { density: Density }) {
       <div className={stackClasses}>
         <article className="flex flex-1 flex-col gap-sp-3 rounded-1 border border-divider bg-surface px-sp-4 py-sp-4">
           <h4 className="text-body-xs font-bold uppercase tracking-wider text-ink">
-            Skarpe Kniver AS
+            Handelsgutane AS
           </h4>
           <div className="flex flex-col gap-sp-1">
             <p className="text-body-sm text-ink-muted">
-              Storgata 12, 0182 Oslo
+              Brynsveien 3, 0667 Oslo
             </p>
-            <p className="text-body-sm text-ink-muted">Org.nr. 912 345 678</p>
+            <p className="text-body-sm text-ink-muted">Org.nr. 917 765 146</p>
             <a
               href="mailto:post@thornfit.no"
               className="text-body-sm text-ink transition-colors hover:text-aka focus:outline-none focus-visible:ring-2 focus-visible:ring-aka focus-visible:ring-offset-1"
@@ -38,10 +38,10 @@ export function KontaktOss({ density }: { density: Density }) {
               post@thornfit.no
             </a>
             <a
-              href="tel:+4722000000"
+              href="tel:+4722646600"
               className="text-body-sm text-ink transition-colors hover:text-aka focus:outline-none focus-visible:ring-2 focus-visible:ring-aka focus-visible:ring-offset-1"
             >
-              +47 22 00 00 00
+              +47 22 64 66 00
             </a>
           </div>
         </article>

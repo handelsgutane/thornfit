@@ -17,7 +17,7 @@ import { RegisterForm } from '@/components/account/RegisterForm';
 import { REGISTER_SUBTITLE, REGISTER_TITLE } from '@/lib/auth/info';
 
 export const metadata: Metadata = {
-  title: `${REGISTER_TITLE} — Skarpe Kniver`,
+  title: `${REGISTER_TITLE} — THORN FIT`,
   description: REGISTER_SUBTITLE,
   robots: { index: false, follow: false },
   alternates: {

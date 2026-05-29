@@ -14,7 +14,7 @@ import { getSessionUser } from '@/lib/auth/session';
 const ITEM = ACCOUNT_NAV.find((i) => i.id === 'settings')!;
 
 export const metadata: Metadata = {
-  title: `${ITEM.label} — Skarpe Kniver`,
+  title: `${ITEM.label} — THORN FIT`,
   robots: { index: false, follow: false },
   alternates: { canonical: ITEM.href },
 };

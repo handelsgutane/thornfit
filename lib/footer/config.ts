@@ -173,10 +173,10 @@ export const FOOTER_SOCIALS: FooterSocial[] = [
  */
 export const FOOTER_COMPANY = {
   /** Formell foretaksnavn fra Paper 2BR-0. */
-  legalName: 'Skarpe Kniver AS',
+  legalName: 'Handelsgutane AS',
   /** MVA fra live-footer — valgfri å vise, men god praksis per nb-NO e-handelslov. */
-  vatNumber: '996 526 569',
+  vatNumber: '917 765 146',
   /** Tagline fra Paper 2AN-0. */
   tagline:
-    'Japanske kniver og kjøkkenutstyr av høyeste kvalitet — valgt med omhu fra produsenter med generasjoners håndverk.',
+    'Høykvalitets treningsutstyr for hjemmegym og funksjonell trening — kettlebells, vektvester, hoppetau og mer.',
 } as const;
