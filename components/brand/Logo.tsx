@@ -17,8 +17,11 @@
  * `public/brand/thornfit-logo-vertical-{black,white}.svg` for bruk der
  * currentColor ikke gjelder (og:image, e-post, eksterne flater).
  *
- * Aspekt-ratio: 400 × 220. Størrelse styres utenfra via `className`
- * (f.eks. `h-10 w-auto` desktop, `h-9 w-auto` mobil).
+ * viewBox er tett rundt selve glyfene (~253×218, ~1.16:1) — IKKE 400×220 med
+ * skjev tom-plass, som tidligere klemte/forskjøv logoen i header. Path-ene
+ * står i opprinnelige absolutt-koordinater; viewBox cropper bare til innholdet.
+ * Størrelse styres utenfra via `className` (f.eks. `h-10 w-auto` desktop,
+ * `h-9 w-auto` mobil).
  *
  * `variant` er reservert for en framtidig kompakt mobilvariant (uten "FIT") —
  * ignoreres bevisst i dag, samme asset rendres for begge.
@@ -38,7 +41,7 @@ export function Logo({ variant, title = 'THORN FIT', className, ...rest }: LogoP
     <svg
       role="img"
       aria-label={title}
-      viewBox="0 0 400 220"
+      viewBox="147.8 3 253.04 218"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
       {...rest}
