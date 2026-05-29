@@ -40,10 +40,11 @@ export function CheckoutHeader() {
             midten uavhengig av tilbake-lenke-bredde. */}
         <Link
           href="/"
-          aria-label="Skarpekniver — til forsiden"
+          aria-label="ThornFit — til forsiden"
           className="absolute left-1/2 -translate-x-1/2"
         >
-          <Logo variant="desktop" className="h-7 w-auto md:h-9" />
+          {/* Stacked-logo: h-8 (32px) mobil, h-10 (40px) desktop. */}
+          <Logo variant="desktop" className="h-8 w-auto md:h-10" />
         </Link>
 
         {/* Tom høyre-side — bevarer flex-balanse. */}

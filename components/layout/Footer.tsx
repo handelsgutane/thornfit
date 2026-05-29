@@ -179,12 +179,11 @@ export async function Footer() {
         ].join(' ')}
       >
         <div className="flex flex-col gap-sp-3">
-          <Link href="/" aria-label="Skarpekniver — til forsiden" className="inline-block">
+          <Link href="/" aria-label="THORN FIT — til forsiden" className="inline-block">
             {/* Logo bruker currentColor — i footer vil vi ha wordmark i unohana
-                (light tekst på dark bg), sirkelen er alltid brand-rød via
-                fast fill i Logo-komponenten. h-[25px] matcher Paper 2AM-0
-                160×25 når aspect-ratio preserveres. */}
-            <Logo className="h-6 w-auto text-unohana" title="Skarpekniver" />
+                (light tekst på dark bg). Stacked-logo (400×220) — h-12 (48px)
+                gir ~87×48 bredde, passer footer-hierarkiet. */}
+            <Logo className="h-12 w-auto text-unohana" title="ThornFit" />
           </Link>
           <p className="max-w-70 text-body-sm text-haiiro">
             {FOOTER_COMPANY.tagline}

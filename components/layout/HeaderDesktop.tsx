@@ -54,10 +54,12 @@ export function HeaderDesktop({ items }: HeaderDesktopProps) {
         <div className="flex items-center">
           <Link
             href="/"
-            aria-label="Skarpekniver — forside"
+            aria-label="ThornFit — forside"
             className="flex items-center text-ink"
           >
-            <Logo variant="desktop" className="h-9 w-auto" />
+            {/* Stacked-logo (400×220 ≈ 1.8:1) — h-10 (40px) gir ~73px bredde
+                og fyller header-høyden (72px) komfortabelt med padding. */}
+            <Logo variant="desktop" className="h-10 w-auto" />
           </Link>
         </div>
 

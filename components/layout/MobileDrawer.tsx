@@ -137,10 +137,11 @@ export function MobileDrawer({ items }: MobileDrawerProps) {
           <Link
             href="/"
             onClick={() => setOpen(false)}
-            aria-label="Skarpekniver — forside"
+            aria-label="ThornFit — forside"
             className="flex items-center text-ink"
           >
-            <Logo variant="mobile" className="h-7 w-auto" />
+            {/* Stacked-logo — match HeaderMobile (h-9) for konsistens. */}
+            <Logo variant="mobile" className="h-9 w-auto" />
           </Link>
           <button
             type="button"

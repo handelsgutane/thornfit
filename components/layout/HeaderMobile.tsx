@@ -38,13 +38,13 @@ export function HeaderMobile() {
       </button>
 
       <div className="flex flex-1 items-center justify-center text-ink">
-        <Link href="/" aria-label="Skarpekniver — forside">
+        <Link href="/" aria-label="ThornFit — forside">
           {/*
-           * Logo-høyde i mobil-nav. Paper G3-0 spesifiserer 130×20 (h-5), men
-           * etter produkt-feedback er logoen bumpet til h-7 (28px → ~178×28 ved
-           * 6.35:1) for bedre lesbarhet. Fortsatt god margin i h-mobile-header (60px).
+           * Logo-høyde i mobil-nav. Stacked-logo (400×220 ≈ 1.8:1) — h-9
+           * (36px) gir ~65px bredde og fyller h-mobile-header (60px)
+           * komfortabelt med padding.
            */}
-          <Logo variant="mobile" className="h-7 w-auto" />
+          <Logo variant="mobile" className="h-9 w-auto" />
         </Link>
       </div>
 
