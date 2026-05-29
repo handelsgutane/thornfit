@@ -18,7 +18,7 @@ import { OrderConfirmedView } from '@/components/checkout/OrderConfirmedView';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Ordre bekreftet — Skarpekniver',
+  title: 'Ordre bekreftet — THORN FIT',
   description: 'Takk for bestillingen din.',
   robots: { index: false, follow: false },
 };

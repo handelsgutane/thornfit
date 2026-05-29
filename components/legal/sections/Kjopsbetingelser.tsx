@@ -34,9 +34,9 @@ const SUBSECTIONS: SubSection[] = [
   {
     number: '1.3',
     title: 'Angrerett',
-    full: 'I henhold til angrerettloven har du som privatperson 14 dagers angrerett fra du mottar varen. Send skriftlig melding til hei@skarpekniver.com eller bruk angrefskjemaet vedlagt i pakken. Varen må returneres i original emballasje og ubrukt stand. Frakt ved retur bekostes av kjøper med mindre varen er feil eller mangelfull.',
+    full: 'I henhold til angrerettloven har du som privatperson 14 dagers angrerett fra du mottar varen. Send skriftlig melding til post@thornfit.no eller bruk angrefskjemaet vedlagt i pakken. Varen må returneres i original emballasje og ubrukt stand. Frakt ved retur bekostes av kjøper med mindre varen er feil eller mangelfull.',
     compact:
-      '14 dagers angrerett fra mottak. Varen returneres ubrukt i original emballasje. Send melding til hei@skarpekniver.com. Returfrakt dekkes av kjøper med mindre varen er mangelfull.',
+      '14 dagers angrerett fra mottak. Varen returneres ubrukt i original emballasje. Send melding til post@thornfit.no. Returfrakt dekkes av kjøper med mindre varen er mangelfull.',
   },
   {
     number: '1.4',

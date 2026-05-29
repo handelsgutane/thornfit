@@ -163,7 +163,7 @@ function GiftCardLoggedOut({ onClose }: { onClose: () => void }) {
           className="text-ink-muted"
           style={{ fontSize: '14px', lineHeight: '21px' }} /* paper-exact: IF5-0 (description 14/21 haiiro) */
         >
-          For å bruke gavekort trenger du en Skarpekniver-profil. Koble
+          For å bruke gavekort trenger du en THORN FIT-profil. Koble
           gavekortet til kontoen din og bruk det på tvers av kjøp.
         </p>
       </div>
@@ -315,7 +315,7 @@ function GiftCardLoggedIn({
               className="truncate font-bold text-ink"
               style={{ fontSize: '14px', lineHeight: '18px' }} /* paper-exact: IRR-1 (14/18 bold) */
             >
-              {user?.displayName ?? 'Skarpekniver-bruker'}
+              {user?.displayName ?? 'THORN FIT-bruker'}
             </span>
             <span
               className="truncate text-ink-muted"

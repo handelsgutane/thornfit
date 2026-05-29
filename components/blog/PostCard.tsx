@@ -310,7 +310,7 @@ function DefaultCard({
         {/* Meta — mobil viser avatar + dato; desktop viser dato + lesetid (Paper ED5-0/EDN-0). */}
         <div className="mt-[2px] flex items-center gap-[6px] text-ink-muted lg:mt-1 lg:flex-col lg:items-start lg:gap-1" /* paper-exact: ED5-0 (col, gap 4) */>
           <Avatar
-            name={author?.name ?? 'Skarpekniver redaksjon'}
+            name={author?.name ?? 'THORN FIT redaksjon'}
             src={author?.avatarUrl ?? null}
             initials={author?.initials}
             size={20}

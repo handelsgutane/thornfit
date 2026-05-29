@@ -17,6 +17,7 @@
  */
 
 import type { Metadata } from 'next';
+import { SITE_URL } from '@/lib/seo/site-url';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
@@ -55,10 +56,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const description = cat.description
     ? stripHtml(cat.description).slice(0, 160)
-    : `Artikler i kategorien ${cat.name} — kniv-kunnskap fra Skarpekniver.`;
+    : `Artikler i kategorien ${cat.name} — kniv-kunnskap fra THORN FIT.`;
 
   return {
-    title: `${cat.name} — Kniv-info — Skarpekniver`,
+    title: `${cat.name} — Kniv-info — THORN FIT`,
     description,
     alternates: { canonical: `/kniv-info/kategori/${cat.slug}` },
     openGraph: {
@@ -307,22 +308,22 @@ export default async function KnivInfoCategoryPage({ params, searchParams }: Pag
               '@context': 'https://schema.org',
               '@type': 'BreadcrumbList',
               itemListElement: [
-                { '@type': 'ListItem', position: 1, name: 'Hjem', item: 'https://skarpekniver.com/' },
-                { '@type': 'ListItem', position: 2, name: 'Kniv-info', item: 'https://skarpekniver.com/kniv-info' },
-                { '@type': 'ListItem', position: 3, name: category.name, item: `https://skarpekniver.com/kniv-info/kategori/${category.slug}` },
+                { '@type': 'ListItem', position: 1, name: 'Hjem', item: `${SITE_URL}/` },
+                { '@type': 'ListItem', position: 2, name: 'Kniv-info', item: `${SITE_URL}/kniv-info` },
+                { '@type': 'ListItem', position: 3, name: category.name, item: `${SITE_URL}/kniv-info/kategori/${category.slug}` },
               ],
             },
             {
               '@context': 'https://schema.org',
               '@type': 'CollectionPage',
               name: `${category.name} — Kniv-info`,
-              url: `https://skarpekniver.com/kniv-info/kategori/${category.slug}`,
+              url: `${SITE_URL}/kniv-info/kategori/${category.slug}`,
               hasPart: posts.slice(0, 10).map((p) => ({
                 '@type': 'BlogPosting',
                 headline: p.title,
                 datePublished: p.publishedAt,
                 dateModified: p.modifiedAt,
-                url: `https://skarpekniver.com/kniv-info/${p.slug}`,
+                url: `${SITE_URL}/kniv-info/${p.slug}`,
                 image: p.featuredImage?.src,
               })),
             },

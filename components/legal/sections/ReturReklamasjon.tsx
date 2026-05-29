@@ -47,8 +47,8 @@ export function ReturReklamasjon({ density }: { density: Density }) {
         <h3 className="text-body font-bold text-ink">3.1 Returbetingelser</h3>
         <p className="text-body leading-relaxed text-ink">
           {isFull
-            ? 'Ubrukte varer i original emballasje kan returneres innen 14 dager fra mottak. Kniver som er tatt i bruk eller slipt kan ikke returneres av hygiene- og sikkerhetsmessige årsaker, med mindre de er mangelfulle. Kontakt oss på hei@skarpekniver.com med ordrenummer og begrunnelse for å starte returen.'
-            : 'Ubrukte varer i original emballasje kan returneres innen 14 dager. Brukte eller slipte kniver tas ikke tilbake av hygienegrunner. Kontakt hei@skarpekniver.com med ordrenummer for å starte retur.'}
+            ? 'Ubrukte varer i original emballasje kan returneres innen 14 dager fra mottak. Kniver som er tatt i bruk eller slipt kan ikke returneres av hygiene- og sikkerhetsmessige årsaker, med mindre de er mangelfulle. Kontakt oss på post@thornfit.no med ordrenummer og begrunnelse for å starte returen.'
+            : 'Ubrukte varer i original emballasje kan returneres innen 14 dager. Brukte eller slipte kniver tas ikke tilbake av hygienegrunner. Kontakt post@thornfit.no med ordrenummer for å starte retur.'}
         </p>
       </div>
 
@@ -58,8 +58,8 @@ export function ReturReklamasjon({ density }: { density: Density }) {
         </h3>
         <p className="text-body leading-relaxed text-ink">
           {isFull
-            ? 'Kjøpsloven gir deg rett til å reklamere på varer med fabrikasjonsfeil i inntil 2 år (5 år for varer ment å vare vesentlig lenger). Send bilder av feilen og din ordrebekreftelse til hei@skarpekniver.com. Vi dekker returfrakten og tilbyr reparasjon, ombytting eller full refusjon.'
-            : 'Reklamasjonsrett i inntil 2 år (5 år for varer som skal vare vesentlig lenger). Send bilder + ordrebekreftelse til hei@skarpekniver.com. Vi dekker returfrakt og tilbyr reparasjon, ombytting eller full refusjon.'}
+            ? 'Kjøpsloven gir deg rett til å reklamere på varer med fabrikasjonsfeil i inntil 2 år (5 år for varer ment å vare vesentlig lenger). Send bilder av feilen og din ordrebekreftelse til post@thornfit.no. Vi dekker returfrakten og tilbyr reparasjon, ombytting eller full refusjon.'
+            : 'Reklamasjonsrett i inntil 2 år (5 år for varer som skal vare vesentlig lenger). Send bilder + ordrebekreftelse til post@thornfit.no. Vi dekker returfrakt og tilbyr reparasjon, ombytting eller full refusjon.'}
         </p>
       </div>
 

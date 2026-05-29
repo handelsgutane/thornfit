@@ -37,7 +37,7 @@ const INITIAL_STATE: WishlistState = {
 };
 
 const STORAGE_VERSION = 1;
-const STORAGE_KEY = 'skarpekniver:wishlist:v1';
+const STORAGE_KEY = 'thornfit:wishlist:v1';
 
 // ---------------------------------------------------------------------------
 // Store

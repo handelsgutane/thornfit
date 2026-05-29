@@ -81,7 +81,7 @@ const INITIAL_STATE: CartState = {
  */
 const STORAGE_VERSION = 1;
 
-const STORAGE_KEY = 'skarpekniver:cart:v1';
+const STORAGE_KEY = 'thornfit:cart:v1';
 
 // ---------------------------------------------------------------------------
 // Store

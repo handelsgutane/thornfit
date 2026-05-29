@@ -25,7 +25,7 @@ import { wooFetchCustomerAddresses } from '@/lib/woo/customers';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Checkout — Skarpekniver',
+  title: 'Checkout — THORN FIT',
   description: 'Fullfør kjøpet ditt.',
   robots: { index: false, follow: false },
 };

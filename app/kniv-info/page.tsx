@@ -25,6 +25,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
+import { SITE_URL } from '@/lib/seo/site-url';
 import { KnivInfoFilterBar } from '@/components/blog/FilterBar';
 import { MobileBlogFilters } from '@/components/blog/MobileBlogFilters';
 import { PostCard } from '@/components/blog/PostCard';
@@ -57,12 +58,12 @@ function parsePage(raw: string | string[] | undefined): number {
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Knivkunnskap — Skarpekniver',
+  title: 'Knivkunnskap — THORN FIT',
   description:
     'Guides, teknikker og historier fra kjøkkenet — for deg som tar matlaging på alvor.',
   alternates: { canonical: '/kniv-info' },
   openGraph: {
-    title: 'Knivkunnskap — Skarpekniver',
+    title: 'Knivkunnskap — THORN FIT',
     description:
       'Guides, teknikker og historier fra kjøkkenet — for deg som tar matlaging på alvor.',
     url: '/kniv-info',
@@ -354,13 +355,13 @@ export default async function KnivInfoIndexPage({ searchParams }: PageProps) {
             name: 'Knivkunnskap',
             description:
               'Guides, teknikker og historier fra kjøkkenet — for deg som tar matlaging på alvor.',
-            url: 'https://skarpekniver.com/kniv-info',
+            url: `${SITE_URL}/kniv-info`,
             blogPost: posts.slice(0, 10).map((p) => ({
               '@type': 'BlogPosting',
               headline: p.title,
               datePublished: p.publishedAt,
               dateModified: p.modifiedAt,
-              url: `https://skarpekniver.com/kniv-info/${p.slug}`,
+              url: `${SITE_URL}/kniv-info/${p.slug}`,
               image: p.featuredImage?.src,
             })),
           }),

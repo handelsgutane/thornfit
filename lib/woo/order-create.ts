@@ -293,7 +293,7 @@ function buildMetaData(
 ): ReadonlyArray<WcMetaDataItem> {
   const meta: WcMetaDataItem[] = [
     // Audit / forensics
-    { key: '_source', value: 'skarpekniver-frontend' },
+    { key: '_source', value: 'thornfit-frontend' },
     { key: '_idempotency_key', value: input.idempotencyKey },
     { key: '_app_version', value: input.appVersion },
 

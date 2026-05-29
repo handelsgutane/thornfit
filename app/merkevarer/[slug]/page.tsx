@@ -13,6 +13,7 @@
  */
 
 import type { Metadata } from 'next';
+import { SITE_URL } from '@/lib/seo/site-url';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 
@@ -48,7 +49,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       : `Alle kniver og produkter fra ${brand.name}${brand.region ? ` — ${brand.region}` : ''}.`;
 
   return {
-    title: `${brand.name} — Skarpekniver`,
+    title: `${brand.name} — THORN FIT`,
     description,
     alternates: { canonical: `/merkevarer/${brand.slug}` },
     openGraph: {
@@ -147,7 +148,7 @@ export default async function BrandPage({ params }: PageProps) {
             '@type': 'Brand',
             name: brand.name,
             description: brand.description ? stripHtml(brand.description) : undefined,
-            url: `https://skarpekniver.com/merkevarer/${brand.slug}`,
+            url: `${SITE_URL}/merkevarer/${brand.slug}`,
             logo: brand.image?.src,
             image: brand.heroImageUrl ?? brand.image?.src,
           }),

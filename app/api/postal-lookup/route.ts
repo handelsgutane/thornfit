@@ -67,7 +67,7 @@ export async function GET(request: Request) {
 async function fetchFromBring(postnr: string): Promise<PostalLookupResult> {
   const url =
     `https://api.bring.com/shippingguide/api/postalCode.json` +
-    `?clientUrl=skarpekniver.com&country=no&pnr=${encodeURIComponent(postnr)}`;
+    `?clientUrl=thornfit.no&country=no&pnr=${encodeURIComponent(postnr)}`;
 
   const res = await fetch(url, {
     headers: { Accept: 'application/json' },

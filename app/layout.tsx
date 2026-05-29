@@ -38,28 +38,28 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Skarpekniver – Kokkekniver og slipeutstyr',
-    template: '%s – Skarpekniver',
+    default: 'THORN FIT – Utstyr for hjemmegym og funksjonell trening',
+    template: '%s – THORN FIT',
   },
   description:
-    'Norsk spesialistbutikk for kokkekniver, slipeutstyr og kniv-tilbehør. Rask levering i hele Norge.',
-  applicationName: 'Skarpekniver',
+    'Utstyr for hjemmegym og funksjonell trening — kettlebells, vektvester, hoppetau og plyo-bokser. Rask levering i hele Norge.',
+  applicationName: 'THORN FIT',
   alternates: {
     canonical: '/',
   },
   openGraph: {
     type: 'website',
     locale: 'nb_NO',
-    siteName: 'Skarpekniver',
+    siteName: 'THORN FIT',
     url: SITE_URL,
-    title: 'Skarpekniver – Kokkekniver og slipeutstyr',
+    title: 'THORN FIT – Utstyr for hjemmegym og funksjonell trening',
     description:
-      'Norsk spesialistbutikk for kokkekniver, slipeutstyr og kniv-tilbehør.',
+      'Utstyr for hjemmegym og funksjonell trening — kettlebells, vektvester, hoppetau og mer.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Skarpekniver',
-    description: 'Kokkekniver og slipeutstyr — norsk spesialistbutikk.',
+    title: 'THORN FIT',
+    description: 'Utstyr for hjemmegym og funksjonell trening.',
   },
   robots: {
     // Staging og preview settes til noindex via NEXT_PUBLIC_VERCEL_ENV-sjekk i middleware

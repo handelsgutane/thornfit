@@ -82,7 +82,7 @@ export async function generateMetadata({ searchParams }: SearchPageProps): Promi
 
   return {
     title: `Søk: ${q}`,
-    description: `Søkeresultater for «${q}» på Skarpekniver.`,
+    description: `Søkeresultater for «${q}» på THORN FIT.`,
     robots: { index: false, follow: true },
   };
 }

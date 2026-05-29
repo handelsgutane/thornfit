@@ -83,9 +83,9 @@ export function ArticleVideo({
             {/* Header — brand-tag (progress-bar fjernet etter design-iterasjon). */}
             <div className="absolute inset-x-0 top-0 flex items-center gap-sp-2 px-3.5 pt-3.5">
               <span className="flex size-7 items-center justify-center rounded-full border-[1.5px] border-white bg-aka text-shiro text-[10px] font-bold" /* paper-exact: EZ7-0 F01-0 (32px brand avatar with 1.5px white border, 10px init) */>
-                SK
+                TF
               </span>
-              <span className="text-body-xs font-bold text-shiro">skarpekniver</span>
+              <span className="text-body-xs font-bold text-shiro">thornfit</span>
               <span className="text-body-xs text-shiro/70">· Følg</span>
               <span className="ml-auto text-shiro" aria-hidden>
                 ⋯

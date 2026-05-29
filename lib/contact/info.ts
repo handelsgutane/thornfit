@@ -40,7 +40,7 @@ export interface ContactChannel {
 
 export const CONTACT_STORE = {
   /** Butikk-/selskapsnavn som vises som H2 i map-overlay. */
-  brand: 'Skarpekniver — Mathallen',
+  brand: 'THORN FIT',
   /** Kort-adresse som vises i kort/overlay. */
   addressLine: 'Vulkan 24, 0178 Oslo',
   /** Kort beskrivelse brukt i hero-subtittel og i butikk-seksjonen. */
@@ -54,7 +54,7 @@ export const CONTACT_STORE = {
   /** Eksternt kart-link (Google Maps). Åpnes i ny fane fra "Vis i kart"-CTA. */
   mapUrl: 'https://www.google.com/maps/search/?api=1&query=Mathallen+Oslo',
   /** Support-e-post — synlig på kontakt-siden som e-post-CTA. */
-  email: 'rasktsvar@skarpekniver.com',
+  email: 'post@thornfit.no',
 } as const;
 
 export const CONTACT_OPENING_HOURS: readonly OpeningHoursRow[] = [

@@ -32,10 +32,10 @@ export function KontaktOss({ density }: { density: Density }) {
             </p>
             <p className="text-body-sm text-ink-muted">Org.nr. 912 345 678</p>
             <a
-              href="mailto:hei@skarpekniver.com"
+              href="mailto:post@thornfit.no"
               className="text-body-sm text-ink transition-colors hover:text-aka focus:outline-none focus-visible:ring-2 focus-visible:ring-aka focus-visible:ring-offset-1"
             >
-              hei@skarpekniver.com
+              post@thornfit.no
             </a>
             <a
               href="tel:+4722000000"

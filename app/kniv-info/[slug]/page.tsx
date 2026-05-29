@@ -14,6 +14,7 @@
  */
 
 import type { Metadata } from 'next';
+import { SITE_URL } from '@/lib/seo/site-url';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -50,7 +51,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const post = await getPostBySlug(slug);
   if (!post) return { title: 'Artikkel ikke funnet' };
 
-  const title = post.seoTitle ?? `${post.title} — Skarpekniver`;
+  const title = post.seoTitle ?? `${post.title} — THORN FIT`;
   const description = post.seoDescription ?? post.excerpt ?? undefined;
   const ogImage = post.ogImageUrl ?? post.featuredImage?.src;
 
@@ -475,19 +476,19 @@ export default async function KnivInfoPostPage({ params }: PageProps) {
               ? {
                   '@type': 'Person',
                   name: author.name,
-                  url: `https://skarpekniver.com/kniv-info/forfatter/${author.slug}`,
+                  url: `${SITE_URL}/kniv-info/forfatter/${author.slug}`,
                   description: author.description ?? undefined,
                 }
               : undefined,
             publisher: {
               '@type': 'Organization',
-              name: 'Skarpekniver',
+              name: 'THORN FIT',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://skarpekniver.com/logo.png',
+                url: `${SITE_URL}/logo.png`,
               },
             },
-            mainEntityOfPage: `https://skarpekniver.com/kniv-info/${post.slug}`,
+            mainEntityOfPage: `${SITE_URL}/kniv-info/${post.slug}`,
           }),
         }}
       />

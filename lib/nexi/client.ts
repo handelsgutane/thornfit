@@ -113,7 +113,7 @@ export async function nexiFetch<T>(
     Accept: 'application/json',
     // Nexi anbefaler at API-konsumenter sender en identifier — det hjelper
     // dem å spore traffic per integrator i support-saker.
-    commercePlatformTag: 'SkarpeknivervNext/1.0',
+    commercePlatformTag: 'ThornfitNext/1.0',
   };
   if (body !== undefined) {
     headers['Content-Type'] = 'application/json';

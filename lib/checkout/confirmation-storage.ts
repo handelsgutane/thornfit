@@ -29,7 +29,7 @@
 
 import type { CheckoutOrderConfirmation } from './confirmation-types';
 
-const STORAGE_KEY = 'skarpekniver:checkout:confirmation:v1';
+const STORAGE_KEY = 'thornfit:checkout:confirmation:v1';
 
 /** Live-tid: hvor lenge en confirmation er "fersk" — etter dette dropper vi
  *  den ved lese (selv om sessionStorage fortsatt har den). 30 min holder

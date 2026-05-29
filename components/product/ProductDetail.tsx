@@ -209,7 +209,7 @@ export function ProductDetail({ product, slugSegments, reviews, brand, relatedPr
   const images = extractImages(product.images);
   const hasSale = product.sale_price !== null && product.regular_price !== null && product.sale_price < product.regular_price;
   const productPath = slugSegments.join('/');
-  const brandLabel = product.primaryCategorySlug?.toUpperCase() ?? 'SKARPEKNIVER';
+  const brandLabel = product.primaryCategorySlug?.toUpperCase() ?? 'THORN FIT';
   const ratingValue = product.average_rating ?? 0;
   const ratingCount = product.rating_count ?? 0;
   const hasRating = ratingCount > 0;
